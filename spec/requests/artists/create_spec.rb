@@ -37,4 +37,32 @@ RSpec.describe 'POST /artists', type: :request do
     end.to change(Album, :count).by(1)
     expect(Album.last.artists).to include(Artist.last)
   end
+
+  context 'when creates the artist with an existing album' do
+    let(:attributes) do
+      {
+        biography: artist.biography,
+        name: artist.name,
+        albums_attributes: [
+          {
+            id: album.id
+          }
+        ]
+      }
+    end
+
+    let(:artist) { FactoryBot.build(:artist) }
+    let!(:album) { FactoryBot.create(:album) }
+
+    it 'creates a new artist' do
+      expect do
+        post_request
+      end.to change(Artist, :count).by(1)
+    end
+
+    it 'associates the album to the artist' do
+      post_request
+      expect(Album.last.artists).to include(Artist.last)
+    end
+  end
 end

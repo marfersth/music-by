@@ -7,4 +7,11 @@ class Artist < ApplicationRecord
   has_many :albums, through: :albums_artists, inverse_of: :artists
 
   accepts_nested_attributes_for :albums, allow_destroy: true
+
+  def albums_attributes=(attributes)
+    attributes.each do |attribute|
+      albums << Album.find(attribute['id']) if attribute['id'].present? && !albums.map(&:id).include?(attribute['id'])
+    end
+    super
+  end
 end

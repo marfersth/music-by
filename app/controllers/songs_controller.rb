@@ -31,8 +31,7 @@ class SongsController < ApplicationController
 
   def song_params
     params.require(:song).permit(:track_num, :genre, :duration, :name, :featured, :feature_text, :album_id,
-                                 artists_attributes: %i[id name biography _destroy],
-                                 artists_songs_attributes: %i[id _destroy])
+                                 artists_attributes: %i[id name biography _destroy])
   end
 
   def song

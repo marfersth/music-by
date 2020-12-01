@@ -13,6 +13,13 @@ class Song < ApplicationRecord
   validates :feature_text, absence: true, unless: :featured
   validate :unique_track_num, :unique_name, :feature_image
 
+  def artists_attributes=(attributes)
+    attributes.each do |attribute|
+      artists << Artist.find(attribute['id']) if attribute['id'].present? && !artists.map(&:id).include?(attribute['id'])
+    end
+    super
+  end
+
   private
 
   def unique_track_num

@@ -162,6 +162,9 @@
                 {
                     id: album.id,
                     _destroy: true
+                },
+                {
+                    id: album.id
                 }
             ]
         }
@@ -180,10 +183,13 @@
           biography: <string>,
           name: <string>,
           albums_attributes: [
-              {
-                  name: <string>,
-                  year: <integer>
-              }
+            {
+                name: <string>,
+                year: <integer>
+            },
+            {
+                id: album.id
+            }
           ]
       }
     }
@@ -266,6 +272,9 @@
                 {
                     id: artist.id,
                     _destroy: true
+                },
+                {
+                    id: artist.id,
                 }
             ]
         }
@@ -289,10 +298,13 @@
           feature_text: <string>,
           image: <base64_image>
           artists_attributes: [
-              {
-                  name: <string>,
-                  biography: <sring>
-              }
+            {
+                name: <string>,
+                biography: <sring>
+            },
+            {
+                id: artist.id,
+            }
           ]
         }
     }
